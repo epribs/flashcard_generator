@@ -8,10 +8,9 @@ inquirer.prompt([
 	choices: ["Basic", "Cloze"]
 }
 ]).then(function(res) {
-	console.log(res.game);
 	switch (res.game) {
 		case "Basic":
-			BasicCard();
+			basic();
 			break;
 		case "Cloze":
 			// ClozeCard();
@@ -35,6 +34,31 @@ function ClozeCard(full, part) {
 
 //Basic
 
+function basic() {
+	inquirer.prompt([
+	{
+		name: "cards",
+		type: "list",
+		message: "Select a card",
+		choices: ["1", "2", "3"]
+	}
+	]).then(function(res) {
+		switch (res.cards) {
+			case "1": 
+				presidentBC.print();
+				break;
+			case "2":
+				sloganBC.print();
+				break;
+			case "3":
+				hockeyBC.print();
+				break;
+		}
+	});
+}
+var presidentBC = new BasicCard("Who was the first president of the United States?", "George Washington");
+var sloganBC = new BasicCard("The slogan \"Just Do It\" was created in 1988 for which company?", "Nike");
+var hockeyBC = new BasicCard("Who scored a record 10 hat tricks in an NHL season?", "Wayne Gretzky");
 
 //Cloze
 var presidentCC = new ClozeCard("George Washington was the first president of the United States.", "George Washington");
