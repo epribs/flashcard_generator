@@ -1,3 +1,6 @@
+var fcObj = require("./flashcardBank");
+
+
 var inquirer = require("inquirer");
 
 inquirer.prompt([
@@ -10,7 +13,7 @@ inquirer.prompt([
 ]).then(function(res) {
 	switch (res.game) {
 		case "Basic":
-			basic();
+		 	basic();
 			break;
 		case "Cloze":
 			// ClozeCard();
@@ -29,7 +32,13 @@ function BasicCard(front, back) {
 }
 
 function ClozeCard(full, part) {
-
+	this.full = full;
+	this.part = part;
+	this.print = function() {
+		console.log(full);
+		console.log(part);
+		console.log("-------------");
+	}
 }
 
 //Basic
@@ -45,20 +54,28 @@ function basic() {
 	]).then(function(res) {
 		switch (res.cards) {
 			case "1": 
-				presidentBC.print();
+				basicArr[0].print();
 				break;
 			case "2":
-				sloganBC.print();
+				basicArr[1].print();
 				break;
 			case "3":
-				hockeyBC.print();
+				basicArr[2].print();
 				break;
 		}
 	});
 }
-var presidentBC = new BasicCard("Who was the first president of the United States?", "George Washington");
-var sloganBC = new BasicCard("The slogan \"Just Do It\" was created in 1988 for which company?", "Nike");
-var hockeyBC = new BasicCard("Who scored a record 10 hat tricks in an NHL season?", "Wayne Gretzky");
+
+var basicArr = [];
+for (var i = 0; i < fcObj.length; i++) {
+	if (fcObj[i].basic) {
+		for (var j = 0; j < fcObj[i].basic.length; j++) {
+			basicArr.push(new BasicCard(fcObj[i].basic[j].front, fcObj[i].basic[j].back));
+		}
+	}
+}
+
+
 
 //Cloze
 var presidentCC = new ClozeCard("George Washington was the first president of the United States.", "George Washington");

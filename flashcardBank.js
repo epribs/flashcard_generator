@@ -1,4 +1,4 @@
-exports.flashcardBank = [
+module.exports = [
 {
 	basic: [
 	{
